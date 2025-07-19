@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/core/styles/app_colors.dart';
 import 'package:meals_app/core/styles/app_text_styles.dart';
 import 'package:meals_app/features/home/home_screen.dart';
+import 'package:meals_app/features/onboarding/Services/on_boarding_services.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -26,6 +27,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
   int currentIndex = 0;
   CarouselSliderController controller = CarouselSliderController();
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPersistentFrameCallback((_) {
+      bool isFirstTime = OnBoardingServices.isFirstTime();
+    OnBoardingServices.setFirstTime();
+    if (isFirstTime == false) {
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+    }
+    });
+    
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
