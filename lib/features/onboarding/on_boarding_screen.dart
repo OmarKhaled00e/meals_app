@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/core/styles/app_colors.dart';
 import 'package:meals_app/core/styles/app_text_styles.dart';
-
-
+import 'package:meals_app/features/home/home_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -48,7 +47,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             left: 32.w,
             child: Container(
               width: 311.w,
-              height: 400.h,
+              height: 450.h,
               padding: EdgeInsets.all(32.sp),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(48.r),
@@ -114,6 +113,60 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       setState(() {});
                     },
                   ),
+                  Spacer(),
+                  currentIndex >= 2
+                      ? InkWell(
+                          onTap: () {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              HomeScreen.routeName,
+                            );
+                          },
+                          child: Container(
+                            width: 62.sp,
+                            height: 62.sp,
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.arrow_forward,
+                              size: 30.sp,
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  HomeScreen.routeName,
+                                );
+                              },
+                              child: Text(
+                                'Skip',
+                                style: TextStyles.white14SemiBold,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                if (currentIndex < 2) {
+                                  currentIndex++;
+                                  controller.animateToPage(currentIndex);
+                                  setState(() {});
+                                }
+                              },
+                              child: Text(
+                                'Next',
+                                style: TextStyles.white14SemiBold,
+                              ),
+                            ),
+                          ],
+                        ),
                 ],
               ),
             ),
