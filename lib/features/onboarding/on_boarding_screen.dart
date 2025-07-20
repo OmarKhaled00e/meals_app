@@ -27,18 +27,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
   int currentIndex = 0;
   CarouselSliderController controller = CarouselSliderController();
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPersistentFrameCallback((_) {
-      bool isFirstTime = OnBoardingServices.isFirstTime();
-    OnBoardingServices.setFirstTime();
-    if (isFirstTime == false) {
-      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-    }
-    });
+  // @override
+  // void initState() {
+  //   WidgetsBinding.instance.addPersistentFrameCallback((_) {
+  //     bool isFirstTime = OnBoardingServices.isFirstTime();
+  //   OnBoardingServices.setFirstTime();
+  //   if (isFirstTime == false) {
+  //     Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+  //   }
+  //   });
     
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
