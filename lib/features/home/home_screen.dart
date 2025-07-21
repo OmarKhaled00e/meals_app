@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/core/styles/app_colors.dart';
 import 'package:meals_app/core/styles/app_text_styles.dart';
+import 'package:meals_app/features/home/data/db_helper/db_helper.dart';
+import 'package:meals_app/features/home/data/models/meal_model.dart';
 import 'package:meals_app/features/home/widgets/custom_food_item.dart';
 import 'package:meals_app/features/home/widgets/cutom_top_home_part.dart';
+
+DbHelper dbHelper = DbHelper.instance;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -29,22 +33,50 @@ class HomeScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 25.h),
                     Expanded(
-                      child: GridView.builder(
-                        itemCount: 30,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisSpacing: 22.sp,
-                          crossAxisSpacing: 16.sp,
-                          childAspectRatio: 0.9,
-                          crossAxisCount: 2,
-                        ),
-                        itemBuilder: (context, index) {
-                          return CustomFoodItem(
-                            onTap: (){},
-                            imageUrl: 'assets/images/food.png',
-                            name: 'Burger',
-                            rate: 4.9,
-                            time: '20-30',
-                          );
+                      child: FutureBuilder(
+                        future: dbHelper.getMeals(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.primaryColor,
+                              ),
+                            );
+                          } else if (snapshot.hasData) {
+                            if (snapshot.data!.isEmpty) {
+                              return Center(
+                                child: Text(
+                                  'No Meals Found ',
+                                  style: TextStyles.black16Madium,
+                                ),
+                              );
+                            }
+                            return GridView.builder(
+                              itemCount: snapshot.data!.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                    mainAxisSpacing: 22.sp,
+                                    crossAxisSpacing: 16.sp,
+                                    childAspectRatio: 0.9,
+                                    crossAxisCount: 2,
+                                  ),
+                              itemBuilder: (context, index) {
+                                MealModel meal = snapshot.data![index];
+                                return CustomFoodItem(
+                                  onTap: () {},
+                                  imageUrl: meal.imageUrl,
+                                  name: meal.name,
+                                  rate: meal.rate,
+                                  time: meal.time,
+                                );
+                              },
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(child: Text('${snapshot.error}'));
+                          }
+
+                          return Container();
                         },
                       ),
                     ),
@@ -57,13 +89,9 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           shape: CircleBorder(),
           backgroundColor: AppColors.primaryColor,
-          child: Icon(Icons.add,
-          color: Colors.white,
-          size: 30.sp,
-          ),
-          onPressed: (){},
-          ),
-          
+          child: Icon(Icons.add, color: Colors.white, size: 30.sp),
+          onPressed: () {},
+        ),
       ),
     );
   }

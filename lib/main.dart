@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/core/helper_functions/on_generate_routes.dart';
-
 import 'package:meals_app/features/onboarding/on_boarding_screen.dart';
 
 void main() async {
