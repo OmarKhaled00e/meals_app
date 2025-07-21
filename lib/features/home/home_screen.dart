@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/core/styles/app_colors.dart';
 import 'package:meals_app/core/styles/app_text_styles.dart';
+import 'package:meals_app/features/add_meal_screen/add_meal_screen.dart';
 import 'package:meals_app/features/home/data/db_helper/db_helper.dart';
 import 'package:meals_app/features/home/data/models/meal_model.dart';
 import 'package:meals_app/features/home/widgets/custom_food_item.dart';
 import 'package:meals_app/features/home/widgets/cutom_top_home_part.dart';
+import 'package:meals_app/features/meal_details_screen/meal_details_screen.dart';
 
 DbHelper dbHelper = DbHelper.instance;
 
@@ -64,7 +66,13 @@ class HomeScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 MealModel meal = snapshot.data![index];
                                 return CustomFoodItem(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      MealDetailsScreen.routeName,
+                                      arguments: meal,
+                                    );
+                                  },
                                   imageUrl: meal.imageUrl,
                                   name: meal.name,
                                   rate: meal.rate,
@@ -75,7 +83,6 @@ class HomeScreen extends StatelessWidget {
                           } else if (snapshot.hasError) {
                             return Center(child: Text('${snapshot.error}'));
                           }
-
                           return Container();
                         },
                       ),
@@ -90,7 +97,9 @@ class HomeScreen extends StatelessWidget {
           shape: CircleBorder(),
           backgroundColor: AppColors.primaryColor,
           child: Icon(Icons.add, color: Colors.white, size: 30.sp),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, AddMealScreen.routeName);
+          },
         ),
       ),
     );

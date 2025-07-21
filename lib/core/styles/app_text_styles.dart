@@ -34,4 +34,9 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: Color(0XFF878787),
   );
+  static TextStyle black24SemiBold = GoogleFonts.inter(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    color: Color(0XFF101010),
+  );
 }

@@ -8,7 +8,8 @@ class CustomTextField extends StatelessWidget {
     super.key,
     this.hintText,
     this.suffixIcon,
-    this.width, this.isPassword, this.controller, this.validator,
+    this.maxLines,
+    this.width, this.isPassword, this.controller, this.validator, this.keyboardInputType,
   });
   final String? hintText;
   final double? width;
@@ -16,11 +17,15 @@ class CustomTextField extends StatelessWidget {
   final bool? isPassword;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardInputType;
+  final int? maxLines;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? 331.w,
       child: TextFormField(
+        maxLines: maxLines ?? 1,
+        keyboardType: keyboardInputType ?? TextInputType.text,
         controller: controller,
         validator: validator,
         obscureText: isPassword ?? false,
@@ -54,7 +59,7 @@ class CustomTextField extends StatelessWidget {
             borderSide: BorderSide(color: Colors.red, width: 1.w),
           ),
           filled: true,
-          fillColor: Color(0xFFE8ECF4),
+          fillColor:Colors.white,
           suffixIcon: suffixIcon,
         ),
       ),
