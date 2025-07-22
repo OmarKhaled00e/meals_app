@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_app/core/styles/app_colors.dart';
 import 'package:meals_app/core/styles/app_text_styles.dart';
 import 'package:meals_app/features/home/data/models/meal_model.dart';
+import 'package:meals_app/features/home/home_screen.dart';
 
 class MealDetailsScreen extends StatelessWidget {
   const MealDetailsScreen({super.key, required this.meal});
@@ -34,7 +35,10 @@ class MealDetailsScreen extends StatelessWidget {
                       top: 12.h,
                       child: InkWell(
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushNamed(
+                            context,
+                            HomeScreen.routeName,
+                          );
                         },
                         child: Container(
                           alignment: Alignment.center,
