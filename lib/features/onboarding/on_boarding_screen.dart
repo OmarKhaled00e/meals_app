@@ -27,24 +27,24 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
   int currentIndex = 0;
   CarouselSliderController controller = CarouselSliderController();
- @override
-void initState() {
-  super.initState();
-  _checkFirstTime(); // async method
-}
+//  @override
+// void initState() {
+//   super.initState();
+//   _checkFirstTime(); // async method
+// }
 
-Future<void> _checkFirstTime() async {
-  await Future.delayed(Duration(milliseconds: 100)); // تأخير بسيط
+// Future<void> _checkFirstTime() async {
+//   await Future.delayed(Duration(milliseconds: 100)); // تأخير بسيط
 
-  final isFirstTime = await OnBoardingServices.isFirstTime();
-  await OnBoardingServices.setFirstTime();
+//   final isFirstTime = await OnBoardingServices.isFirstTime();
+//   await OnBoardingServices.setFirstTime();
 
-  if (!mounted) return;
+//   if (!mounted) return;
 
-  if (!isFirstTime) {
-    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-  }
-}
+//   if (!isFirstTime) {
+//     Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+//   }
+// }
 
   @override
   Widget build(BuildContext context) {
