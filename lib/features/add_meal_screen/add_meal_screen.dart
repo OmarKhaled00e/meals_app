@@ -110,7 +110,7 @@ class _AddMealScreenState extends State<AddMealScreen> {
                       Text('Description', style: TextStyles.black16Madium),
                       SizedBox(height: 8.h),
                       CustomTextField(
-                        keyboardInputType: TextInputType.number,
+                        keyboardInputType: TextInputType.text,
                         controller: descriptionController,
                         maxLines: 4,
                         validator: (value) {

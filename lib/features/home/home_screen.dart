@@ -7,6 +7,7 @@ import 'package:meals_app/features/home/data/db_helper/db_helper.dart';
 import 'package:meals_app/features/home/data/models/meal_model.dart';
 import 'package:meals_app/features/home/widgets/custom_food_item.dart';
 import 'package:meals_app/features/home/widgets/cutom_top_home_part.dart';
+import 'package:meals_app/features/home/widgets/grid_view_builder.dart';
 import 'package:meals_app/features/meal_details_screen/meal_details_screen.dart';
 
 DbHelper dbHelper = DbHelper.instance;
@@ -54,32 +55,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               );
                             }
-                            return GridView.builder(
-                              itemCount: snapshot.data!.length,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                    mainAxisSpacing: 22.sp,
-                                    crossAxisSpacing: 16.sp,
-                                    childAspectRatio: 0.9,
-                                    crossAxisCount: 2,
-                                  ),
-                              itemBuilder: (context, index) {
-                                MealModel meal = snapshot.data![index];
-                                return CustomFoodItem(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      MealDetailsScreen.routeName,
-                                      arguments: meal,
-                                    );
-                                  },
-                                  imageUrl: meal.imageUrl,
-                                  name: meal.name,
-                                  rate: meal.rate,
-                                  time: meal.time,
-                                );
-                              },
-                            );
+                            return GridViewBuilder(meals: snapshot.data!);
                           } else if (snapshot.hasError) {
                             return Center(child: Text('${snapshot.error}'));
                           }
@@ -98,10 +74,11 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: AppColors.primaryColor,
           child: Icon(Icons.add, color: Colors.white, size: 30.sp),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, AddMealScreen.routeName);
+            Navigator.pushNamed(context, AddMealScreen.routeName);
           },
         ),
       ),
     );
   }
 }
+
